@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -21,18 +21,22 @@ const columnSize = 30;
 const statusBarHeight = getStatusBarHeight(true);
 const bottomSpace = getBottomSpace();
 
-const Column = ({ text, color, opacity }) => {
+const Column = ({ text, color, opacity, disabled, onPress, isSelected }) => {
   return (
-    <View
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
       style={{
         width: columnSize,
         height: columnSize,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: isSelected ? "#c2c2c2" : "transparent",
+        borderRadius: columnSize / 2,
       }}
     >
       <Text style={{ color, opacity }}>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -46,10 +50,12 @@ const ArrowButton = ({ onPress, iconName }) => {
 
 export default function App() {
   const now = dayjs();
-  const columns = getCalendarColumns(now);
+  const columns = getCalendarColumns(selectedDate);
+
+  const [selectedDate, setSelectedDate] = useState(now);
 
   const ListHeaderComponent = () => {
-    const currentDateText = dayjs(now).format("YYYY.MM.DD");
+    const currentDateText = dayjs(selectedDate).format("YYYY.MM.DD");
     return (
       <View>
         <Margin height={15} />
@@ -79,6 +85,7 @@ export default function App() {
                 text={dayText}
                 color={color}
                 opacity={1}
+                disabled={true}
               />
             );
           })}
@@ -91,13 +98,19 @@ export default function App() {
     const dateText = dayjs(date).get("date");
     const day = dayjs(date).get("day");
     const color = getDayColor(day);
-    const isCurrentMonth = dayjs(date).isSame(now, "month");
+    const isCurrentMonth = dayjs(date).isSame(selectedDate, "month");
+    const onPress = () => {
+      setSelectedDate(date);
+    };
+    const isSelected = dayjs(date).isSame(selectedDate, "date");
 
     return (
       <Column
         text={dateText}
         color={color}
         opacity={isCurrentMonth ? 1 : 0.4}
+        onPress={onPress}
+        isSelected={isSelected}
       />
     );
   };
