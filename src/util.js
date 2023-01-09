@@ -38,3 +38,28 @@ export const getCalendarColumns = (now) => {
   const filledColumns = fillEmptyColumns(columns, start, end);
   return filledColumns;
 };
+
+export const getDayText = (day) => {
+  switch (day) {
+    case 0:
+      return "일";
+    case 1:
+      return "월";
+    case 2:
+      return "화";
+    case 3:
+      return "수";
+    case 4:
+      return "목";
+    case 5:
+      return "금";
+    case 6:
+      return "토";
+    default:
+      return "";
+  }
+};
+
+export const getDayColor = (day) => {
+  return day === 0 ? "#e67639" : day === 6 ? "#5872d1" : "#2b2b2b";
+};
