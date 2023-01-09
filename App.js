@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -17,6 +17,7 @@ import { runPracticeDayjs } from "./src/practice-dayjs";
 import { getCalendarColumns, getDayColor, getDayText } from "./src/util";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { usecalendar } from "./src/hook/use-calendar";
 
 const columnSize = 30;
 const statusBarHeight = getStatusBarHeight(true);
@@ -51,32 +52,20 @@ const ArrowButton = ({ onPress, iconName }) => {
 
 export default function App() {
   const now = dayjs();
-  const [selectedDate, setSelectedDate] = useState(now);
+  const {
+    selectedDate,
+    setSelectedDate,
+    isDatePickerVisible,
+    showDatePicker,
+    hideDatePicker,
+    handleConfirm,
+    subtract1Month,
+    addtract1Month,
+  } = usecalendar(now);
+
   const columns = getCalendarColumns(selectedDate);
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    setSelectedDate(dayjs(date));
-    hideDatePicker();
-  };
-
-  const onPressLeftArrow = () => {
-    const newSelectedDate = dayjs(selectedDate).subtract(1, "month");
-    setSelectedDate(newSelectedDate);
-  };
-
-  const onPressRightArrow = () => {
-    const newSelectedDate = dayjs(selectedDate).add(1, "month");
-    setSelectedDate(newSelectedDate);
-  };
+  const onPressLeftArrow = subtract1Month;
+  const onPressRightArrow = addtract1Month;
 
   const ListHeaderComponent = () => {
     const currentDateText = dayjs(selectedDate).format("YYYY.MM.DD");
