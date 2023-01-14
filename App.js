@@ -42,7 +42,7 @@ export default function App() {
     addtract1Month,
   } = usecalendar(now);
   const {
-    todoList,
+    filteredTodoList,
     input,
     setInput,
     addTodo,
@@ -171,7 +171,7 @@ export default function App() {
         <View>
           <FlatList
             ref={flatListRef}
-            data={todoList}
+            data={filteredTodoList}
             ListHeaderComponent={ListHeaderComponent}
             renderItem={renderItem}
             style={{ flex: 1 }}

@@ -2,24 +2,126 @@ import dayjs from "dayjs";
 import { useState } from "react";
 
 const defaultTodoList = [
-  {
-    id: 1,
-    content: "운동하기",
-    date: dayjs(),
-    isSuccess: true,
-  },
-  {
-    id: 2,
-    content: "공부하기",
-    date: dayjs(),
-    isSuccess: false,
-  },
-  {
-    id: 3,
-    content: "RN 강의 수강하기",
-    date: dayjs(),
-    isSuccess: true,
-  },
+  // {
+  //   id: 1,
+  //   content: "운동하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 2,
+  //   content: "공부하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 3,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 4,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 5,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 6,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 7,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 8,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 9,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 10,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 11,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 12,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 13,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 14,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 15,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 16,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 17,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
+  // {
+  //   id: 18,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 19,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: false,
+  // },
+  // {
+  //   id: 20,
+  //   content: "RN 강의 수강하기",
+  //   date: dayjs(),
+  //   isSuccess: true,
+  // },
 ];
 
 export const useTodoList = (selectedDate) => {
@@ -57,9 +159,14 @@ export const useTodoList = (selectedDate) => {
     setTodoList(newTodoList);
   };
 
+  const filteredTodoList = todoList.filter((todo) => {
+    const isSameDate = dayjs(todo.date).isSame(selectedDate, "date");
+    return isSameDate;
+  });
+
   const resetInput = () => setInput("");
   return {
-    todoList,
+    filteredTodoList,
     addTodo,
     removeTodo,
     toggleTodo,
