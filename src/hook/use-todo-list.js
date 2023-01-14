@@ -166,6 +166,7 @@ export const useTodoList = (selectedDate) => {
 
   const resetInput = () => setInput("");
   return {
+    todoList,
     filteredTodoList,
     addTodo,
     removeTodo,

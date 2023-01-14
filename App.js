@@ -42,6 +42,7 @@ export default function App() {
     addtract1Month,
   } = usecalendar(now);
   const {
+    todoList,
     filteredTodoList,
     input,
     setInput,
@@ -63,6 +64,7 @@ export default function App() {
       <View>
         <Calendar
           columns={columns}
+          todoList={todoList}
           selectedDate={selectedDate}
           onPressLeftArrow={onPressLeftArrow}
           onPressRightArrow={onPressRightArrow}
